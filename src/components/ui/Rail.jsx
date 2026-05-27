@@ -4,6 +4,7 @@ import { supabase } from '../../lib/supabase'
 import { PosterCard } from './PosterCard'
 import styles from './Rail.module.css'
 
+const FIELDS = 'id, title, year, imdb_rating, genres, poster'
 const SKELETONS = Array.from({ length: 10 })
 
 function ChevronLeft() {
@@ -24,25 +25,56 @@ function ChevronRight() {
   )
 }
 
-export function Rail({ title, kicker, linkTo }) {
+// filter: { column: 'tone', value: 'dark' } | null
+// fallbackOffset: used when filter returns 0 results or errors, ensures each rail shows different movies
+export function Rail({ title, kicker, filter, fallbackOffset = 0, linkTo }) {
   const trackRef              = useRef(null)
   const [movies, setMovies]   = useState([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    async function run() {
-      const { data, error } = await supabase
-        .from('movies')
-        .select('id, title, year, imdb_rating, genres, poster')
-        .limit(20)
+  const filterKey = filter ? `${filter.column}:${filter.value}` : 'none'
 
-      if (error) { console.error(error); return; }
-      setMovies(data)
+  useEffect(() => {
+    let cancelled = false
+
+    async function run() {
+      let data = null
+
+      // Try filtered query first
+      if (filter) {
+        const { data: filtered, error } = await supabase
+          .from('movies')
+          .select(FIELDS)
+          .ilike(filter.column, `%${filter.value}%`)
+          .order('imdb_rating', { ascending: false })
+          .limit(20)
+
+        if (!error && filtered?.length > 0) {
+          data = filtered
+        } else if (error) {
+          console.warn(`[Rail "${title}"] filter failed, using fallback:`, error.message)
+        }
+      }
+
+      // Fallback: top-rated at offset so different rails show different movies
+      if (!data) {
+        const { data: fb, error: fbErr } = await supabase
+          .from('movies')
+          .select(FIELDS)
+          .order('imdb_rating', { ascending: false })
+          .range(fallbackOffset, fallbackOffset + 19)
+
+        if (!fbErr) data = fb
+      }
+
+      if (cancelled) return
+      setMovies(data ?? [])
       setLoading(false)
     }
 
     run()
-  }, [])
+    return () => { cancelled = true }
+  }, [filterKey, fallbackOffset, title])
 
   function scroll(dir) {
     const el = trackRef.current

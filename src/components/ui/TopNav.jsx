@@ -150,10 +150,9 @@ export function TopNav() {
             <kbd className={styles.kbd}>⌘K</kbd>
           </div>
 
-          <div
+          <button
+            type="button"
             className={styles.avatar}
-            role="button"
-            tabIndex={0}
             aria-label="User menu"
           />
 

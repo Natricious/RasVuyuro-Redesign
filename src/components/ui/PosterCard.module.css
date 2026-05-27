@@ -3,13 +3,16 @@
   border-radius: var(--radius-sm);
   overflow: hidden;
   cursor: pointer;
+  /* Promote to GPU layer so hover doesn't trigger layout */
+  will-change: transform;
+  transform: translateZ(0);
   transition: transform 200ms ease, box-shadow 200ms ease;
   outline: none;
 }
 
 .card:hover,
 .card:focus-visible {
-  transform: translateY(-4px);
+  transform: translate3d(0, -4px, 0);
   box-shadow: var(--shadow);
 }
 

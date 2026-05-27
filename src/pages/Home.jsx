@@ -11,7 +11,7 @@ const RAILS = [
   {
     title:          'ქართული ახალი ტალღა',
     kicker:         '1980–2000 · ავტორული კინო',
-    filter:         { column: 'timeline', value: ['georgian'] },
+    filter:         { column: 'collections', value: 'georgian' },
     fallbackOffset: 0,
     linkTo:         '/movies',
   },
@@ -25,14 +25,14 @@ const RAILS = [
   {
     title:          'წვიმიანი დღისთვის',
     kicker:         'ატმოსფერული · ნელი · სათბური',
-    filter:         { column: 'tone', value: ['melancholic'] },
+    filter:         { column: 'tone', value: 'melancholic' },
     fallbackOffset: 20,
     linkTo:         '/movies',
   },
   {
     title:          'შუაღამისთვის',
     kicker:         'ღამის 12-ის შემდეგ',
-    filter:         { column: 'tone', value: ['dark'] },
+    filter:         { column: 'tone', value: 'dark' },
     fallbackOffset: 40,
     linkTo:         '/movies',
   },
@@ -75,7 +75,7 @@ export default function Home() {
         {featured && (
           <>
             <div className={styles.heroBg}>
-              {featured.poster && <img src={featured.poster} alt="" />}
+              {featured.poster && <img src={featured.poster} alt="" fetchpriority="high" />}
             </div>
 
             <div className={styles.heroContent}>
@@ -108,21 +108,16 @@ export default function Home() {
                   </div>
                 )}
 
-                <div className={styles.stats}>
-                  {featured.imdb_rating != null && (
+                {featured.imdb_rating != null && (
+                  <div className={styles.stats}>
                     <div className={styles.stat}>
                       <span className={styles.statValue}>
                         ★ {Number(featured.imdb_rating).toFixed(1)}
                       </span>
                       <span className={styles.statLabel}>IMDb</span>
                     </div>
-                  )}
-                  <span className={styles.statDivider} />
-                  <div className={styles.stat}>
-                    <span className={styles.statValue}>98%</span>
-                    <span className={styles.statLabel}>Match</span>
                   </div>
-                </div>
+                )}
 
                 {synopsis && (
                   <p className={styles.synopsis}>{synopsis}</p>

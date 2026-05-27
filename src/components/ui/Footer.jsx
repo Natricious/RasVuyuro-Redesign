@@ -5,8 +5,8 @@ const COLUMNS = [
   {
     title: 'ფილმები',
     links: [
-      { label: 'ახლახან დამატებული', to: '/movies?sort=new' },
-      { label: 'საუკეთესო რეიტინგი', to: '/movies?sort=top' },
+      { label: 'ახლახან დამატებული', to: '/movies' },
+      { label: 'საუკეთესო რეიტინგი', to: '/movies' },
       { label: 'ჟანრების მიხედვით',  to: '/movies'          },
       { label: 'კოლექციები',          to: '/collections'     },
     ],

@@ -579,3 +579,67 @@
   0%, 100% { opacity: 1;    }
   50%       { opacity: 0.35; }
 }
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .mainSection {
+    margin-top: 8vh;
+    padding: 0 16px 40px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .posterCol {
+    position: static;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: clamp(28px, 8vw, 48px);
+  }
+
+  .tagline {
+    font-size: 16px;
+  }
+
+  .below {
+    padding: 0 0 8px;
+    gap: 40px;
+  }
+
+  .sectionHeaderRow {
+    padding: 0 16px 12px;
+  }
+
+  .similarTrack {
+    padding: 4px 16px 12px;
+  }
+
+  .similarItem {
+    flex: 0 0 150px;
+    min-width: 150px;
+  }
+
+  .reviewsEmpty {
+    padding: 32px 16px;
+  }
+
+  .backBtn {
+    top: 70px;
+    left: 16px;
+  }
+
+  .loadingGrid {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+
+  .loadingPoster {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+}

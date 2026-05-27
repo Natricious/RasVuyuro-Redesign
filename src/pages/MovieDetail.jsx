@@ -241,7 +241,6 @@ export default function MovieDetail() {
                 ? <img src={movie.poster} alt={movie.title} />
                 : null
               }
-              <span className={styles.matchBadge}>94% თქვენთვის</span>
             </div>
           </div>
 
