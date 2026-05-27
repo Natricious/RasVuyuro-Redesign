@@ -1,0 +1,111 @@
+.rail {
+  /* section owns its own scroll area; header aligns to page grid */
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px 14px;
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: var(--tracking-display);
+  color: var(--ink);
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.arrow:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--bg-3) 60%, var(--ink) 40%);
+}
+
+.allLink {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-3);
+  text-decoration: none;
+  padding: 0 4px;
+  margin-left: 4px;
+  transition: color 150ms ease;
+}
+
+.allLink:hover {
+  color: var(--ink);
+}
+
+/* ── Scroll track ────────────────────────────────────────────── */
+.track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* align left edge with the page grid; trailing padding lets last card breathe */
+  padding: 4px 24px 12px;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: 0 0 156px;
+  scroll-snap-align: start;
+}
+
+/* ── Skeleton ────────────────────────────────────────────────── */
+.skeleton {
+  flex: 0 0 156px;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius-sm);
+  background: var(--bg-3);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
