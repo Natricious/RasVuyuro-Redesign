@@ -109,3 +109,32 @@
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.35; }
 }
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .header {
+    padding: 0 16px 12px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .track {
+    padding: 4px 16px 12px;
+  }
+
+  .track {
+    overflow-x: auto;
+  }
+
+  .item {
+    flex: 0 0 150px;
+    min-width: 150px;
+  }
+
+  .skeleton {
+    flex: 0 0 150px;
+    min-width: 150px;
+  }
+}

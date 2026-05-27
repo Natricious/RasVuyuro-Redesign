@@ -33,11 +33,30 @@ function FilmstripIcon() {
   )
 }
 
+function HamburgerIcon({ open }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      {open
+        ? <>
+            <line x1="4" y1="4" x2="16" y2="16" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+            <line x1="16" y1="4" x2="4" y2="16" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+          </>
+        : <>
+            <line x1="3" y1="5.5"  x2="17" y2="5.5"  stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+            <line x1="3" y1="10"   x2="17" y2="10"    stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+            <line x1="3" y1="14.5" x2="17" y2="14.5"  stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+          </>
+      }
+    </svg>
+  )
+}
+
 export function TopNav() {
   const navigate                  = useNavigate()
   const [searchParams]            = useSearchParams()
   const inputRef                  = useRef(null)
   const debounceRef               = useRef(null)
+  const [menuOpen, setMenuOpen]   = useState(false)
 
   const urlQ = searchParams.get('q') ?? ''
   const [inputVal, setInputVal]   = useState(urlQ)
@@ -94,7 +113,7 @@ export function TopNav() {
           <span className={styles.wordmark}>CineGuide</span>
         </Link>
 
-        {/* Center — nav links */}
+        {/* Center — nav links (hidden on mobile) */}
         <div className={styles.links} role="list">
           {NAV_LINKS.map(({ to, label, end, accent }) => (
             <NavLink
@@ -115,7 +134,7 @@ export function TopNav() {
           ))}
         </div>
 
-        {/* Right — search + avatar */}
+        {/* Right — search + avatar (search hidden on mobile) */}
         <div className={styles.actions}>
           <div className={styles.searchWrap}>
             <input
@@ -137,9 +156,43 @@ export function TopNav() {
             tabIndex={0}
             aria-label="User menu"
           />
+
+          {/* Hamburger — visible on mobile only */}
+          <button
+            type="button"
+            className={styles.menuBtn}
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label={menuOpen ? 'მენიუს დახურვა' : 'მენიუს გახსნა'}
+            aria-expanded={menuOpen}
+          >
+            <HamburgerIcon open={menuOpen} />
+          </button>
         </div>
 
       </div>
+
+      {/* Mobile menu drawer */}
+      {menuOpen && (
+        <div className={styles.mobileMenu}>
+          {NAV_LINKS.map(({ to, label, end, accent }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={end}
+              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) =>
+                [
+                  styles.mobileLink,
+                  isActive && styles.mobileLinkActive,
+                  accent   && styles.mobileLinkAccent,
+                ].filter(Boolean).join(' ')
+              }
+            >
+              {label}
+            </NavLink>
+          ))}
+        </div>
+      )}
     </nav>
   )
 }

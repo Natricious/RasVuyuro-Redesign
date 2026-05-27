@@ -4,6 +4,7 @@
   min-height: 640px;
   display: flex;
   align-items: flex-end;
+  overflow: hidden;
 }
 
 .heroBg {
@@ -309,4 +310,62 @@
 
 .wizardBtn:hover {
   opacity: 0.86;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .hero {
+    min-height: unset;
+    align-items: flex-start;
+  }
+
+  .heroContent {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 40px 16px 52px;
+    gap: 28px;
+    justify-items: center;
+  }
+
+  .heroPoster {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    aspect-ratio: 2 / 3;
+    justify-self: center;
+  }
+
+  .heroInfo {
+    align-items: center;
+    text-align: center;
+  }
+
+  .heroTitle {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .genreRow,
+  .heroActions,
+  .stats {
+    justify-content: center;
+  }
+
+  .synopsis {
+    max-width: 100%;
+    -webkit-line-clamp: 3;
+  }
+
+  .rails {
+    gap: 36px;
+    padding-top: 40px;
+  }
+
+  .wizard {
+    margin: 48px 16px 0;
+  }
+
+  .wizardContent {
+    padding: 52px 20px 56px;
+  }
 }

@@ -157,3 +157,78 @@
   border-color: var(--ink-3);
   outline: none;
 }
+
+/* ── Hamburger button — desktop hidden, mobile shown ─────────── */
+.menuBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+/* ── Mobile drawer ───────────────────────────────────────────── */
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  padding: 8px 0 16px;
+}
+
+.mobileLink {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink-2);
+  padding: 14px 24px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-2);
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.mobileLink:last-child {
+  border-bottom: none;
+}
+
+.mobileLink:hover {
+  color: var(--ink);
+  background: var(--line-2);
+}
+
+.mobileLinkActive {
+  color: var(--ink);
+}
+
+.mobileLinkAccent {
+  color: var(--accent);
+}
+
+/* ── Mobile breakpoint ───────────────────────────────────────── */
+@media (max-width: 760px) {
+  .inner {
+    padding: 0 16px;
+  }
+
+  .links {
+    display: none;
+  }
+
+  .searchWrap {
+    display: none;
+  }
+
+  .avatar {
+    display: none;
+  }
+
+  .actions {
+    margin-left: auto;
+  }
+
+  .menuBtn {
+    display: flex;
+  }
+}
