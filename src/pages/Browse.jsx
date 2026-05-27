@@ -191,7 +191,15 @@ export default function Browse() {
             ? GRID_SKELETONS.map((_, i) => (
                 <div key={i} className={styles.gridSkeleton} />
               ))
-            : movies.map(m => <PosterCard key={m.id} movie={m} />)
+            : movies.map((m, i) => (
+                <div
+                  key={m.id}
+                  className={styles.gridItem}
+                  style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
+                >
+                  <PosterCard movie={m} />
+                </div>
+              ))
           }
         </div>
       )}

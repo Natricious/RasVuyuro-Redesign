@@ -179,11 +179,21 @@
   padding: 0 24px;
 }
 
+.gridItem {
+  animation: gridItemIn 320ms var(--ease-out) both;
+}
+
 .gridSkeleton {
   aspect-ratio: 2 / 3;
   border-radius: var(--radius-sm);
-  background: var(--bg-3);
-  animation: pulse 1.6s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    var(--bg-3) 0%,
+    color-mix(in srgb, var(--bg-3) 76%, var(--ink) 24%) 50%,
+    var(--bg-3) 100%
+  );
+  background-size: 300% 100%;
+  animation: shimmer 1.6s linear infinite;
 }
 
 /* ── List view ───────────────────────────────────────────────── */
@@ -303,9 +313,15 @@
 .listSkeleton {
   height: 128px;
   border-radius: var(--radius-sm);
-  background: var(--bg-3);
+  background: linear-gradient(
+    90deg,
+    var(--bg-3) 0%,
+    color-mix(in srgb, var(--bg-3) 76%, var(--ink) 24%) 50%,
+    var(--bg-3) 100%
+  );
+  background-size: 300% 100%;
   margin-bottom: 2px;
-  animation: pulse 1.6s ease-in-out infinite;
+  animation: shimmer 1.6s linear infinite;
 }
 
 /* ── Empty state ─────────────────────────────────────────────── */
@@ -379,10 +395,15 @@
   background: color-mix(in srgb, var(--bg-3) 60%, var(--ink) 40%);
 }
 
-/* ── Shared animation ────────────────────────────────────────── */
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.3; }
+/* ── Shared animations ───────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes gridItemIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Mobile ──────────────────────────────────────────────────── */

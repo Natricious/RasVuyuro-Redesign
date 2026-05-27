@@ -243,7 +243,19 @@
 .heroSkeleton {
   width: 100%;
   min-height: 640px;
-  background: var(--bg-2);
+  background: linear-gradient(
+    90deg,
+    var(--bg-2) 0%,
+    color-mix(in srgb, var(--bg-2) 72%, var(--ink) 28%) 50%,
+    var(--bg-2) 100%
+  );
+  background-size: 400% 100%;
+  animation: heroShimmer 2.4s linear infinite;
+}
+
+@keyframes heroShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* ── Rails container ─────────────────────────────────────────── */

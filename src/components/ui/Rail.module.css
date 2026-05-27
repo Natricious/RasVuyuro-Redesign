@@ -112,13 +112,19 @@
   flex: 0 0 156px;
   aspect-ratio: 2 / 3;
   border-radius: var(--radius-sm);
-  background: var(--bg-3);
-  animation: pulse 1.8s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    var(--bg-3) 0%,
+    color-mix(in srgb, var(--bg-3) 76%, var(--ink) 24%) 50%,
+    var(--bg-3) 100%
+  );
+  background-size: 300% 100%;
+  animation: shimmer 1.8s linear infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.3; }
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 @keyframes itemIn {

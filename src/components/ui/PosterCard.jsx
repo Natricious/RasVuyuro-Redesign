@@ -5,6 +5,7 @@ import styles from './PosterCard.module.css'
 export function PosterCard({ movie }) {
   const navigate = useNavigate()
   const [imgFailed, setImgFailed] = useState(false)
+  const [imgLoaded, setImgLoaded] = useState(false)
 
   function go() {
     navigate(`/movie/${movie.id}`)
@@ -21,7 +22,14 @@ export function PosterCard({ movie }) {
     >
       <div className={styles.poster}>
         {movie.poster && !imgFailed
-          ? <img src={movie.poster} alt="" loading="lazy" onError={() => setImgFailed(true)} />
+          ? <img
+              src={movie.poster}
+              alt=""
+              loading="lazy"
+              className={`${styles.posterImg}${imgLoaded ? ' ' + styles.posterImgLoaded : ''}`}
+              onLoad={() => setImgLoaded(true)}
+              onError={() => setImgFailed(true)}
+            />
           : <div className={styles.fallback}>
               <span className={styles.fallbackIcon} aria-hidden="true">🎬</span>
             </div>

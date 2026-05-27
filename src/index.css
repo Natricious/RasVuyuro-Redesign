@@ -86,6 +86,12 @@ button {
   background: none;
 }
 
+/* ── Shimmer loading effect ──────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* ── Scroll containers: hide scrollbar ───────────────────────── */
 .scroll-container {
   scrollbar-width: none;
