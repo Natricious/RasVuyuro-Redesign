@@ -30,24 +30,19 @@ export function Rail({ title, kicker, linkTo }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    let cancelled = false
-
     async function run() {
       const { data, error } = await supabase
         .from('movies')
         .select('id, title, year, imdb_rating, genres, poster')
-        .order('imdb_rating', { ascending: false })
         .limit(20)
 
-      if (cancelled) return
-      if (error) console.error(`[Rail "${title}"] query error:`, error)
-      setMovies(data ?? [])
+      if (error) { console.error(error); return; }
+      setMovies(data)
       setLoading(false)
     }
 
     run()
-    return () => { cancelled = true }
-  }, [title])
+  }, [])
 
   function scroll(dir) {
     const el = trackRef.current
