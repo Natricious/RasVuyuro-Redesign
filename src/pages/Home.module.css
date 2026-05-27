@@ -53,6 +53,8 @@
   margin: 0 auto;
   padding: 100px 48px 68px;
   align-items: end;
+  animation: heroIn 480ms var(--ease-out) both;
+  animation-delay: 80ms;
 }
 
 /* ── Poster column ───────────────────────────────────────────── */
@@ -83,14 +85,14 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-  padding: 4px 10px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  padding: 4px 11px;
   border-radius: var(--radius-pill);
 }
 
@@ -232,6 +234,11 @@
   background: color-mix(in srgb, var(--ink) 14%, transparent);
 }
 
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Hero skeleton ───────────────────────────────────────────── */
 .heroSkeleton {
   width: 100%;
@@ -243,8 +250,9 @@
 .rails {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 52px;
   padding-top: 64px;
+  padding-bottom: 16px;
 }
 
 /* ── Wizard CTA banner ───────────────────────────────────────── */

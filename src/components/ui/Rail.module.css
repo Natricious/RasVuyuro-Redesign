@@ -1,5 +1,5 @@
 .rail {
-  /* section owns its own scroll area; header aligns to page grid */
+  /* each section owns its scroll context; header aligns to page grid */
 }
 
 /* ── Header ─────────────────────────────────────────────────── */
@@ -10,19 +10,19 @@
   gap: 16px;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px 14px;
+  padding: 0 24px 16px;
 }
 
 .titles {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 .kicker {
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -34,6 +34,7 @@
   letter-spacing: var(--tracking-display);
   color: var(--ink);
   margin: 0;
+  line-height: 1.1;
 }
 
 .controls {
@@ -52,14 +53,18 @@
   border-radius: var(--radius-pill);
   background: var(--bg-3);
   border: 1px solid var(--line);
-  color: var(--ink-2);
+  color: var(--ink-3);
   cursor: pointer;
-  transition: background 150ms ease, color 150ms ease;
+  transition:
+    background 160ms var(--ease-out),
+    color 160ms var(--ease-out),
+    border-color 160ms var(--ease-out);
 }
 
 .arrow:hover {
   color: var(--ink);
-  background: color-mix(in srgb, var(--bg-3) 60%, var(--ink) 40%);
+  background: var(--bg-2);
+  border-color: var(--ink-4);
 }
 
 .allLink {
@@ -68,23 +73,27 @@
   color: var(--ink-3);
   text-decoration: none;
   padding: 0 4px;
-  margin-left: 4px;
-  transition: color 150ms ease;
+  margin-left: 6px;
+  transition: color 150ms var(--ease-out);
+  white-space: nowrap;
 }
 
 .allLink:hover {
-  color: var(--ink);
+  color: var(--ink-2);
 }
 
 /* ── Scroll track ────────────────────────────────────────────── */
 .track {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  /* proximity feels more natural than mandatory — cards still snap cleanly */
+  scroll-snap-type: x proximity;
+  scroll-padding-left: 24px;
   scrollbar-width: none;
-  /* align left edge with the page grid; trailing padding lets last card breathe */
-  padding: 4px 24px 12px;
+  padding: 4px 24px 16px;
+  /* Prevent scroll from triggering page bounce on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
 .track::-webkit-scrollbar {
@@ -94,6 +103,8 @@
 .item {
   flex: 0 0 156px;
   scroll-snap-align: start;
+  /* Subtle entrance when cards mount after loading */
+  animation: itemIn 280ms var(--ease-out) both;
 }
 
 /* ── Skeleton ────────────────────────────────────────────────── */
@@ -102,30 +113,33 @@
   aspect-ratio: 2 / 3;
   border-radius: var(--radius-sm);
   background: var(--bg-3);
-  animation: pulse 1.6s ease-in-out infinite;
+  animation: pulse 1.8s ease-in-out infinite;
 }
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0.35; }
+  50%       { opacity: 0.3; }
+}
+
+@keyframes itemIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Mobile ──────────────────────────────────────────────────── */
 @media (max-width: 760px) {
   .header {
-    padding: 0 16px 12px;
+    padding: 0 16px 14px;
   }
 
   .title {
-    font-size: 20px;
+    font-size: 19px;
   }
 
   .track {
-    padding: 4px 16px 12px;
-  }
-
-  .track {
-    overflow-x: auto;
+    gap: 10px;
+    padding: 4px 16px 16px;
+    scroll-padding-left: 16px;
   }
 
   .item {

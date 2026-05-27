@@ -57,7 +57,7 @@
   color: var(--ink-2);
   padding: 6px 14px;
   border-radius: var(--radius-pill);
-  transition: color 150ms ease, background 150ms ease;
+  transition: color 150ms var(--ease-out), background 150ms var(--ease-out);
   white-space: nowrap;
   text-decoration: none;
 }
@@ -183,10 +183,10 @@
   font-size: 16px;
   font-weight: 500;
   color: var(--ink-2);
-  padding: 14px 24px;
+  padding: 15px 24px;
   text-decoration: none;
   border-bottom: 1px solid var(--line-2);
-  transition: color 150ms ease, background 150ms ease;
+  transition: color 150ms var(--ease-out), background 150ms var(--ease-out);
 }
 
 .mobileLink:last-child {
