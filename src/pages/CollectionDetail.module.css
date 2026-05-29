@@ -1,0 +1,203 @@
+/* ── Page ────────────────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  padding-bottom: 96px;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.header {
+  position: relative;
+  background: var(--bg-2);
+  background-size: cover;
+  background-position: center;
+}
+
+.headerOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--bg) 50%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 92%, transparent) 100%
+  );
+}
+
+.headerContent {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 44px 24px 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-3);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color 150ms var(--ease-out);
+}
+
+.backBtn:hover {
+  color: var(--ink-2);
+}
+
+.accentBar {
+  display: block;
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  margin-bottom: 6px;
+}
+
+.kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 64px);
+  letter-spacing: var(--tracking-display);
+  color: var(--ink);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.count {
+  font-size: 13px;
+  color: var(--ink-4);
+  font-variant-numeric: tabular-nums;
+  margin-top: 6px;
+}
+
+/* ── Grid ────────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 28px 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 36px 24px 0;
+}
+
+.gridItem {
+  animation: gridItemIn 320ms var(--ease-out) both;
+}
+
+/* ── Skeleton ────────────────────────────────────────────────── */
+.skeleton {
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--bg-3) 0%,
+    color-mix(in srgb, var(--bg-3) 76%, var(--ink) 24%) 50%,
+    var(--bg-3) 100%
+  );
+  background-size: 300% 100%;
+  animation: shimmer 1.8s linear infinite;
+}
+
+/* ── Not-found state ─────────────────────────────────────────── */
+.notFound {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.notFoundText {
+  font-size: 16px;
+  color: var(--ink-3);
+}
+
+.notFoundBack {
+  font-size: 14px;
+  color: var(--ink-2);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.notFoundBack:hover {
+  color: var(--ink);
+  border-color: var(--ink-3);
+}
+
+/* ── Load more ───────────────────────────────────────────────── */
+.loadMore {
+  display: flex;
+  justify-content: center;
+  padding: 40px 24px 80px;
+}
+
+.loadMoreBtn {
+  height: 44px;
+  padding: 0 36px;
+  background: var(--bg-3);
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.loadMoreBtn:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: var(--ink-3);
+  background: color-mix(in srgb, var(--bg-3) 60%, var(--ink) 40%);
+}
+
+.loadMoreBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ── Keyframes ───────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes gridItemIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .headerContent {
+    padding: 32px 16px 36px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px 12px;
+    padding: 24px 16px 0;
+  }
+
+  .loadMore {
+    padding: 32px 16px 60px;
+  }
+}

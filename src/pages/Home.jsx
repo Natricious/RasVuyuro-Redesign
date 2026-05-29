@@ -1,46 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import { useCollections } from '../hooks/useCollections'
 import { Rail } from '../components/ui/Rail'
 import styles from './Home.module.css'
 
-// Only what the hero needs — no backdrop_url NOT NULL filter so we always get a result
 const HERO_FIELDS = 'id,title,title_ge,year,imdb_rating,genres,themes,tone,poster,description,description_ka'
-
-const RAILS = [
-  {
-    title:          'ქართული ახალი ტალღა',
-    kicker:         '1980–2000 · ავტორული კინო',
-    filter:         { column: 'collections', value: 'georgian' },
-    fallbackOffset: 0,
-    linkTo:         '/movies',
-  },
-  {
-    title:          'კრიტიკოსების არჩევანი',
-    kicker:         'ყველაზე მაღალი IMDb შეფასება',
-    filter:         null,
-    fallbackOffset: 0,
-    linkTo:         '/movies',
-  },
-  {
-    title:          'წვიმიანი დღისთვის',
-    kicker:         'ატმოსფერული · ნელი · სათბური',
-    filter:         { column: 'tone', value: 'melancholic' },
-    fallbackOffset: 20,
-    linkTo:         '/movies',
-  },
-  {
-    title:          'შუაღამისთვის',
-    kicker:         'ღამის 12-ის შემდეგ',
-    filter:         { column: 'tone', value: 'dark' },
-    fallbackOffset: 40,
-    linkTo:         '/movies',
-  },
-]
 
 export default function Home() {
   const [featured, setFeatured]       = useState(null)
   const [heroLoading, setHeroLoading] = useState(true)
+  const { collections }               = useCollections()
 
   useEffect(() => {
     let cancelled = false
@@ -52,11 +22,8 @@ export default function Home() {
       .limit(1)
       .then(({ data, error: err }) => {
         if (cancelled) return
-        if (err) {
-          console.error('[Home] hero query error:', err)
-        } else if (data?.length) {
-          setFeatured(data[0])
-        }
+        if (err) console.error('[Home] hero query error:', err)
+        else if (data?.length) setFeatured(data[0])
         setHeroLoading(false)
       })
 
@@ -137,16 +104,15 @@ export default function Home() {
         )}
       </section>
 
-      {/* ── Rails ───────────────────────────────────────────── */}
+      {/* ── Rails — one per visible collection, ordered by display_order ── */}
       <main className={styles.rails} aria-label="Film collections">
-        {RAILS.map(rail => (
+        {collections.map(col => (
           <Rail
-            key={rail.title}
-            title={rail.title}
-            kicker={rail.kicker}
-            filter={rail.filter}
-            fallbackOffset={rail.fallbackOffset}
-            linkTo={rail.linkTo}
+            key={col.slug}
+            title={col.title_ka || col.title_en}
+            kicker={col.title_en}
+            collectionSlug={col.slug}
+            linkTo={`/collections/${col.slug}`}
           />
         ))}
       </main>

@@ -4,8 +4,17 @@ import { supabase } from '../../lib/supabase'
 import { PosterCard } from './PosterCard'
 import styles from './Rail.module.css'
 
-const FIELDS = 'id, title, year, imdb_rating, genres, poster'
+const FIELDS = 'id,title,year,imdb_rating,genres,poster'
 const SKELETONS = Array.from({ length: 10 })
+
+// PostgREST contains-set filter on movies.collections (text[]).
+// Also accepts underscore variant for legacy slug data (ancient-rome → ancient_rome).
+function buildCollectionFilter(slug) {
+  const under = slug.replace(/-/g, '_')
+  const parts = [`collections.cs.{"${slug}"}`]
+  if (under !== slug) parts.push(`collections.cs.{"${under}"}`)
+  return parts.join(',')
+}
 
 function ChevronLeft() {
   return (
@@ -25,46 +34,42 @@ function ChevronRight() {
   )
 }
 
-// filter: { column: 'tone', value: 'dark' } | null
-// fallbackOffset: used when filter returns 0 results or errors, ensures each rail shows different movies
-export function Rail({ title, kicker, filter, fallbackOffset = 0, linkTo }) {
+export function Rail({ title, kicker, collectionSlug, linkTo }) {
   const trackRef              = useRef(null)
   const [movies, setMovies]   = useState([])
   const [loading, setLoading] = useState(true)
 
-  const filterKey = filter ? `${filter.column}:${filter.value}` : 'none'
-
   useEffect(() => {
     let cancelled = false
+    setLoading(true)
+    setMovies([])
 
     async function run() {
       let data = null
 
-      // Try filtered query first
-      if (filter) {
+      if (collectionSlug) {
         const { data: filtered, error } = await supabase
           .from('movies')
           .select(FIELDS)
-          .ilike(filter.column, `%${filter.value}%`)
+          .or(buildCollectionFilter(collectionSlug))
           .order('imdb_rating', { ascending: false })
           .limit(20)
 
         if (!error && filtered?.length > 0) {
           data = filtered
         } else if (error) {
-          console.warn(`[Rail "${title}"] filter failed, using fallback:`, error.message)
+          console.warn(`[Rail "${title}"] collection filter error:`, error.message)
         }
       }
 
-      // Fallback: top-rated at offset so different rails show different movies
+      // Fallback: top-rated movies when collection is empty or not specified
       if (!data) {
-        const { data: fb, error: fbErr } = await supabase
+        const { data: fb } = await supabase
           .from('movies')
           .select(FIELDS)
           .order('imdb_rating', { ascending: false })
-          .range(fallbackOffset, fallbackOffset + 19)
-
-        if (!fbErr) data = fb
+          .limit(20)
+        data = fb
       }
 
       if (cancelled) return
@@ -74,7 +79,7 @@ export function Rail({ title, kicker, filter, fallbackOffset = 0, linkTo }) {
 
     run()
     return () => { cancelled = true }
-  }, [filterKey, fallbackOffset, title])
+  }, [collectionSlug, title])
 
   function scroll(dir) {
     const el = trackRef.current
@@ -101,7 +106,7 @@ export function Rail({ title, kicker, filter, fallbackOffset = 0, linkTo }) {
             onClick={() => scroll(1)} aria-label="შემდეგი">
             <ChevronRight />
           </button>
-          <Link to={linkTo} className={styles.allLink}>ყველა →</Link>
+          {linkTo && <Link to={linkTo} className={styles.allLink}>ყველა →</Link>}
         </div>
       </div>
 

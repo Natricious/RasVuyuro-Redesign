@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
 import { Routes, Route, Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { TopNav }     from './components/ui/TopNav'
-import { Footer }     from './components/ui/Footer'
-import Home           from './pages/Home'
-import Browse         from './pages/Browse'
-import MovieDetail    from './pages/MovieDetail'
+import { TopNav }          from './components/ui/TopNav'
+import { Footer }          from './components/ui/Footer'
+import Home                from './pages/Home'
+import Browse              from './pages/Browse'
+import MovieDetail         from './pages/MovieDetail'
+import Collections         from './pages/Collections'
+import CollectionDetail    from './pages/CollectionDetail'
 
 /* ── Scroll to top on every route change ───────────────────── */
 function ScrollToTop() {
@@ -110,8 +112,9 @@ export default function App() {
         <Route path="/movies"    element={<Browse />}      />
         <Route path="/movie/:id" element={<MovieDetail />} />
 
-        {/* /collections shows the same Browse catalog */}
-        <Route path="/collections" element={<Browse />} />
+        {/* Collections — landing grid + per-collection detail */}
+        <Route path="/collections"       element={<Collections />}      />
+        <Route path="/collections/:slug" element={<CollectionDetail />} />
 
         {/* Placeholder pages — built later */}
         <Route path="/wizard"  element={<Placeholder label="ჯადოქარი" />} />
