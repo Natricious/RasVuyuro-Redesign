@@ -8,9 +8,15 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 24px 16px;
+  padding: 0 48px 16px;
+  /* Faint portal-energy glow centered behind each rail heading */
+  background: radial-gradient(
+    ellipse 70% 100% at 50% 50%,
+    color-mix(in srgb, var(--accent) 5%, transparent) 0%,
+    transparent 70%
+  );
 }
 
 .titles {
@@ -89,9 +95,9 @@
   overflow-x: auto;
   /* proximity feels more natural than mandatory — cards still snap cleanly */
   scroll-snap-type: x proximity;
-  scroll-padding-left: 24px;
+  scroll-padding-left: 48px;
   scrollbar-width: none;
-  padding: 4px 24px 16px;
+  padding: 4px 48px 16px;
   /* Prevent scroll from triggering page bounce on iOS */
   -webkit-overflow-scrolling: touch;
 }
