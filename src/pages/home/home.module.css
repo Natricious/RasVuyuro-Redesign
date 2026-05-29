@@ -159,8 +159,10 @@
 .hero {
   position:   relative;
   height:     500px;
-  overflow:   hidden;
-  background: linear-gradient(180deg, #0b0b14 0%, #0a0a11 52%, #090910 100%);
+  overflow-x: clip;
+  overflow-y: visible;
+  background: linear-gradient(180deg, #0b0b14 0%, #0a0a11 52%, var(--hp-bg) 100%);
+  z-index:    1;
 }
 
 /* ── Portal wrapper ──────────────────────────────────────────── */
@@ -172,6 +174,7 @@
   width:     620px;
   height:    620px;
   z-index:   1;
+  pointer-events: none;
 }
 
 /* Ambient warm glow behind portal */
@@ -465,8 +468,8 @@
    warmth above, creating visual continuity rather than a hard cut. */
 .rails {
   position:   relative;
-  z-index:    0;
-  background: var(--hp-bg);
+  z-index:    2;
+  background: transparent;
   padding:    56px 40px 56px;
   display:    flex;
   flex-direction: column;
