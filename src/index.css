@@ -1,9 +1,9 @@
 /* ── Design tokens ───────────────────────────────────────────── */
 :root {
   /* Backgrounds */
-  --bg:   #0e0d0b;
-  --bg-2: #16140f;
-  --bg-3: #1f1c16;
+  --bg:   #0a0a12;
+  --bg-2: #121221;
+  --bg-3: #1a1a2b;
 
   /* Ink (text) */
   --ink:   #f3ede3;
@@ -16,8 +16,8 @@
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Accent */
-  --accent:     #c4523e;
-  --accent-ink: #f3ede3;
+  --accent:     #f26a21;
+  --accent-ink: #ffffff;
 
   /* Borders */
   --line:   rgba(243, 237, 227, 0.1);

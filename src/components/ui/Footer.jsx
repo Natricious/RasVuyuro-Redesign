@@ -74,7 +74,7 @@ export function Footer() {
       <div className={styles.bottom}>
         <div className={styles.bottomInner}>
           <span className={styles.copy}>
-            © {new Date().getFullYear()} CineGuide. ყველა უფლება დაცულია.
+            © {new Date().getFullYear()} RASVUYURO. ყველა უფლება დაცულია.
           </span>
           <div className={styles.legal}>
             <span className={styles.legalLink}>კონფიდენციალობა</span>

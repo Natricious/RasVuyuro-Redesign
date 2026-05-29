@@ -10,25 +10,21 @@ const NAV_LINKS = [
   { to: '/mine',        label: 'ჩემი',                    },
 ]
 
-function FilmstripIcon() {
+function BrandIcon() {
   return (
     <svg
       className={styles.brandIcon}
       width="22"
       height="22"
-      viewBox="0 0 22 22"
-      fill="currentColor"
+      viewBox="0 0 26 26"
+      fill="none"
       aria-hidden="true"
     >
-      <rect x="1" y="4" width="20" height="14" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <line x1="1"  y1="8"  x2="21" y2="8"  stroke="currentColor" strokeWidth="1.25" />
-      <line x1="1"  y1="14" x2="21" y2="14" stroke="currentColor" strokeWidth="1.25" />
-      <rect x="4"   y="4.5"  width="2" height="3" rx="0.5" />
-      <rect x="9"   y="4.5"  width="2" height="3" rx="0.5" />
-      <rect x="14"  y="4.5"  width="2" height="3" rx="0.5" />
-      <rect x="4"   y="14.5" width="2" height="3" rx="0.5" />
-      <rect x="9"   y="14.5" width="2" height="3" rx="0.5" />
-      <rect x="14"  y="14.5" width="2" height="3" rx="0.5" />
+      <circle cx="13" cy="13" r="2.8" fill="currentColor" />
+      <circle cx="13" cy="13" r="9.5" stroke="currentColor" strokeWidth="1.4"
+        strokeDasharray="5 3.2" opacity="0.65" />
+      <ellipse cx="13" cy="13" rx="9.5" ry="4.6" stroke="currentColor"
+        strokeWidth="1" opacity="0.42" transform="rotate(-32 13 13)" />
     </svg>
   )
 }
@@ -109,8 +105,8 @@ export function TopNav() {
 
         {/* Left — brand */}
         <Link to="/" className={styles.brand}>
-          <FilmstripIcon />
-          <span className={styles.wordmark}>CineGuide</span>
+          <BrandIcon />
+          <span className={styles.wordmark}>RASVUYURO</span>
         </Link>
 
         {/* Center — nav links (hidden on mobile) */}
