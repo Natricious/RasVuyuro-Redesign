@@ -247,28 +247,56 @@ export default function MovieDetail() {
           {/* Right — info */}
           <div className={styles.infoCol}>
 
-            {genreList.length > 0 && (
-              <span className={styles.genreKicker}>
-                {genreList.slice(0, 3).join(' · ')}
-              </span>
-            )}
-
-            <h1 className={styles.title}>{movie.title}</h1>
-
-            {movie.title_ge && (
-              <p className={styles.titleEn}>{movie.title_ge}</p>
-            )}
-
-            <div className={styles.meta}>
-              {movie.imdb_rating != null && (
-                <>
-                  <span className={styles.metaRating}>
-                    ★ {Number(movie.imdb_rating).toFixed(1)}
-                  </span>
-                  <span className={styles.metaDot}>·</span>
-                </>
+            <div className={styles.headerGroup}>
+              {genreList.length > 0 && (
+                <span className={styles.genreKicker}>
+                  {genreList.slice(0, 3).join(' · ')}
+                </span>
               )}
-              {movie.year    && <span>{movie.year}</span>}
+
+              <h1 className={styles.title}>{movie.title}</h1>
+
+              {movie.title_ge && (
+                <p className={styles.titleEn}>{movie.title_ge}</p>
+              )}
+
+              <div className={styles.meta}>
+                {movie.imdb_rating != null && (
+                  <>
+                    <span className={styles.metaRating}>
+                      ★ {Number(movie.imdb_rating).toFixed(1)}
+                    </span>
+                    <span className={styles.metaDot}>·</span>
+                  </>
+                )}
+                {movie.year    && <span>{movie.year}</span>}
+              </div>
+            </div>
+
+            <div className={styles.actionCard}>
+              {/* Watched / Planned toggles */}
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  className={`${styles.actionBtn} ${isWatched ? styles.actionBtnPrimary : styles.actionBtnGhost}`}
+                  onClick={() => toggleWatched(key)}
+                >
+                  {isWatched ? '✓ ნანახია' : 'ნანახად მონიშვნა'}
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.actionBtn} ${isPlanned ? styles.actionBtnPrimary : styles.actionBtnGhost}`}
+                  onClick={() => togglePlanned(key)}
+                >
+                  {isPlanned ? '✓ სიაში' : '+ სიაში დამატება'}
+                </button>
+              </div>
+
+              <StarRating
+                movieId={key}
+                value={userRating}
+                onChange={n => rate(key, n)}
+              />
             </div>
 
             {tagline && (
@@ -279,44 +307,7 @@ export default function MovieDetail() {
               <p className={styles.synopsis}>{bodyText}</p>
             )}
 
-            <dl className={styles.creditsGrid}>
-              {movie.year && (
-                <>
-                  <dt>წელი</dt>
-                  <dd>{movie.year}</dd>
-                </>
-              )}
-              {genreList.length > 0 && (
-                <>
-                  <dt>ჟანრი</dt>
-                  <dd>{genreList.join(', ')}</dd>
-                </>
-              )}
-            </dl>
 
-            {/* Watched / Planned toggles */}
-            <div className={styles.actions}>
-              <button
-                type="button"
-                className={`${styles.actionBtn} ${isWatched ? styles.actionBtnPrimary : styles.actionBtnGhost}`}
-                onClick={() => toggleWatched(key)}
-              >
-                {isWatched ? '✓ ნანახია' : 'ნანახად მონიშვნა'}
-              </button>
-              <button
-                type="button"
-                className={`${styles.actionBtn} ${isPlanned ? styles.actionBtnPrimary : styles.actionBtnGhost}`}
-                onClick={() => togglePlanned(key)}
-              >
-                {isPlanned ? '✓ სიაში' : '+ სიაში დამატება'}
-              </button>
-            </div>
-
-            <StarRating
-              movieId={key}
-              value={userRating}
-              onChange={n => rate(key, n)}
-            />
 
             {/* Streaming providers */}
             <div className={styles.providers}>
