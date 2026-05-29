@@ -117,13 +117,15 @@ function Rail({ title, subtitle, movies, loading, linkTo, showNote }) {
         </p>
       )}
 
-      <div className={styles.grid} ref={gridRef}>
-        {loading
-          ? Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className={styles.cardSkeleton} />
-            ))
-          : movies.map(m => <MovieCard key={m.id} movie={m} />)
-        }
+      <div className={styles.gridOuter} ref={gridRef}>
+        <div className={styles.grid}>
+          {loading
+            ? Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className={styles.cardSkeleton} />
+              ))
+            : movies.map(m => <MovieCard key={m.id} movie={m} />)
+          }
+        </div>
       </div>
     </section>
   )
@@ -182,7 +184,7 @@ function RecentRail() {
       movies={movies}
       loading={loading}
       showNote={!hasHistory}
-      linkTo="/wizard"
+      linkTo="/movies"
     />
   )
 }

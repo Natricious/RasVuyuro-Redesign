@@ -102,13 +102,28 @@ function NotFound() {
   )
 }
 
+/* ── Homepage layout — no TopNav (HomeNav renders inside Home.jsx) */
+function HomepageLayout() {
+  return (
+    <>
+      <ScrollToTop />
+      <Outlet />
+      <Footer />
+    </>
+  )
+}
+
 /* ── Route table ────────────────────────────────────────────── */
 export default function App() {
   return (
     <Routes>
+      {/* Homepage uses its own nav — TopNav excluded */}
+      <Route element={<HomepageLayout />}>
+        <Route path="/" element={<Home />} />
+      </Route>
+
+      {/* All other pages use the shared Layout with TopNav */}
       <Route element={<Layout />}>
-        {/* Core pages */}
-        <Route path="/"          element={<Home />}        />
         <Route path="/movies"    element={<Browse />}      />
         <Route path="/movie/:id" element={<MovieDetail />} />
 

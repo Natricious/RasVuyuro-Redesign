@@ -32,10 +32,10 @@
 }
 
 .wordmark {
-  font-family: var(--font-display);
-  font-weight: var(--fw-display);
-  font-size: 17px;
-  letter-spacing: var(--tracking-display);
+  font-family:    'Oswald', sans-serif;
+  font-weight:    700;
+  font-size:      17px;
+  letter-spacing: 0.06em;
 }
 
 .tagline {

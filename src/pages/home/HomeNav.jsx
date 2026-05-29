@@ -1,5 +1,5 @@
-import { useRef } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import styles from './home.module.css'
 
 function BrandIcon() {
@@ -55,10 +55,37 @@ const NAV_LINKS = [
 ]
 
 export default function HomeNav() {
-  const searchRef = useRef(null)
+  const navigate    = useNavigate()
+  const searchRef   = useRef(null)
+  const debounceRef = useRef(null)
+  const [inputVal, setInputVal] = useState('')
+
+  useEffect(() => () => clearTimeout(debounceRef.current), [])
 
   function focusSearch() {
     searchRef.current?.focus()
+  }
+
+  function handleChange(e) {
+    const val = e.target.value
+    setInputVal(val)
+    clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => {
+      if (val.trim()) navigate(`/movies?q=${encodeURIComponent(val.trim())}`)
+      else            navigate('/movies')
+    }, 280)
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === 'Escape') {
+      setInputVal('')
+      clearTimeout(debounceRef.current)
+      searchRef.current?.blur()
+    }
+    if (e.key === 'Enter' && inputVal.trim()) {
+      clearTimeout(debounceRef.current)
+      navigate(`/movies?q=${encodeURIComponent(inputVal.trim())}`)
+    }
   }
 
   return (
@@ -95,6 +122,14 @@ export default function HomeNav() {
 
       {/* Right: search + avatar */}
       <div className={styles.navRight}>
+        {/* Mobile: icon-only — hidden on desktop via CSS */}
+        <button type="button" className={styles.mobileSearchBtn}
+          onClick={() => navigate('/movies')}
+          aria-label="ფილმის ძებნა">
+          <IconSearch />
+        </button>
+
+        {/* Desktop: full text input — hidden on mobile via CSS */}
         <div className={styles.searchWrap}>
           <input
             ref={searchRef}
@@ -102,6 +137,9 @@ export default function HomeNav() {
             className={styles.searchInput}
             placeholder="ფილმის ძებნა..."
             aria-label="ფილმის ძებნა"
+            value={inputVal}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
           />
         </div>
         <button type="button" className={styles.avatarBtn} aria-label="User menu" />
